@@ -62,7 +62,7 @@ void terminal_initialize(void)
 {
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLUE);
+	terminal_color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLUE);
 	terminal_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
 		for (size_t x = 0; x < VGA_WIDTH; x++) {
@@ -120,5 +120,18 @@ void kernel_main(void)
 	terminal_writestring("Hello World!\n");
 	terminal_writestring("This has to be in new line\n");
 	terminal_writestring("New line char in \n lines\n");
+	terminal_wrtiestring("1 ABCDEFG\n");
+	terminal_wrtiestring("2 ABCDEFG\n");
+	terminal_wrtiestring("3 ABCDEFG\n");
+	terminal_wrtiestring("4 ABCDEFG\n");
+	terminal_wrtiestring("5 ABCDEFG\n");
+	terminal_wrtiestring("6 ABCDEFG\n");
+	terminal_wrtiestring("7 ABCDEFG\n");
+	terminal_wrtiestring("8 ABCDEFG\n");
+	terminal_wrtiestring("9 ABCDEFG\n");
+	terminal_wrtiestring("10 ABCDEFG\n");
+	terminal_wrtiestring("11 ABCDEFG\n");
+	terminal_wrtiestring("12 ABCDEFG\n");
+	terminal_wrtiestring("13 ABCDEFG\n");
 }
 
