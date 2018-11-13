@@ -57,11 +57,14 @@ size_t terminal_row;
 size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
+
+size_t terminal_curr_column;
+size_t terminal_curr_row;
  
 void terminal_initialize(void) 
 {
-	terminal_row = 0;
-	terminal_column = 0;
+	terminal_curr_row = terminal_row = 0;
+	terminal_curr_row = terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLUE);
 	terminal_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
@@ -89,6 +92,20 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
 		terminal_buffer[index] = vga_entry(c, color);
 	}
 }
+
+void scroll_down()
+{
+	size_t y;
+	for (y = 0; y < VGA_HEIGHT-1; y++) {
+		for (size_t x = 0; x < VGA_WIDTH; x++) {
+			terminal_buffer[y * VGA_WIDTH + x] = terminal_buffer[(y+1) * VGA_WIDTH + x]; 
+		}
+	}
+	for (size_t x = 0; x < VGA_WIDTH; x++) {
+			terminal_buffer[y * VGA_WIDTH + x] = vga_entry(' ', terminal_color); 
+	}
+	terminal_row = VGA_HEIGHT - 1;
+}
  
 void terminal_putchar(char c) 
 {
@@ -96,7 +113,10 @@ void terminal_putchar(char c)
 	if (++terminal_column == VGA_WIDTH) {
 		terminal_column = 0;
 		if (++terminal_row == VGA_HEIGHT)
-			terminal_row = 0;
+		{
+			scroll_down();
+			//terminal_row = 0;
+		}
 	}
 }
  
@@ -120,18 +140,28 @@ void kernel_main(void)
 	terminal_writestring("Hello World!\n");
 	terminal_writestring("This has to be in new line\n");
 	terminal_writestring("New line char in \n lines\n");
-	terminal_wrtiestring("1 ABCDEFG\n");
-	terminal_wrtiestring("2 ABCDEFG\n");
-	terminal_wrtiestring("3 ABCDEFG\n");
-	terminal_wrtiestring("4 ABCDEFG\n");
-	terminal_wrtiestring("5 ABCDEFG\n");
-	terminal_wrtiestring("6 ABCDEFG\n");
-	terminal_wrtiestring("7 ABCDEFG\n");
-	terminal_wrtiestring("8 ABCDEFG\n");
-	terminal_wrtiestring("9 ABCDEFG\n");
-	terminal_wrtiestring("10 ABCDEFG\n");
-	terminal_wrtiestring("11 ABCDEFG\n");
-	terminal_wrtiestring("12 ABCDEFG\n");
-	terminal_wrtiestring("13 ABCDEFG\n");
+	terminal_writestring("1 ABCDEFG\n");
+	terminal_writestring("2 ABCDEFG\n");
+	terminal_writestring("3 ABCDEFG\n");
+	terminal_writestring("4 ABCDEFG\n");
+	terminal_writestring("5 ABCDEFG\n");
+	terminal_writestring("6 ABCDEFG\n");
+	terminal_writestring("7 ABCDEFG\n");
+	terminal_writestring("8 ABCDEFG\n");
+	terminal_writestring("9 ABCDEFG\n");
+	terminal_writestring("10 ABCDEFG\n");
+	terminal_writestring("11 ABCDEFG\n");
+	terminal_writestring("12 ABCDEFG\n");
+	terminal_writestring("13 ABCDEFG\n");
+	terminal_writestring("14 ABCDEFG\n");
+	terminal_writestring("15 ABCDEFG\n");
+	terminal_writestring("16 ABCDEFG\n");
+	terminal_writestring("17 ABCDEFG\n");
+	terminal_writestring("18 ABCDEFG\n");
+	terminal_writestring("19 ABCDEFG\n");
+	terminal_writestring("20 ABCDEFG\n");
+	terminal_writestring("21 ABCDEFG\n");
+	terminal_writestring("22 ABCDEFG\n");
+	terminal_writestring("23 ABCDEFG\n");
 }
 
